@@ -8,9 +8,7 @@ const opts = {
 	cert: fs.readFileSync(path.join(__dirname, 'server_cert.pem')),
 	requestCert: true,
 	rejectUnauthorized: false, // so we can do own error handling
-	ca: [
-		fs.readFileSync(path.join(__dirname, 'server_cert.pem'))
-	]
+	ca: [ fs.readFileSync(path.join(__dirname, 'server_cert.pem')) ]
 };
 
 const app = express();
@@ -20,25 +18,24 @@ app.get('/', (req, res) => {
 });
 
 app.get('/authenticate', (req, res) => {
+	console.log('call api /authenticate');
 	const cert = req.connection.getPeerCertificate();
 
 	if (req.client.authorized) {
 		res.send(`Hello ${cert.subject.CN}, your certificate was issued by ${cert.issuer.CN}!`);
-
 	} else if (cert.subject) {
-		res.status(403)
-			 .send(`Sorry ${cert.subject.CN}, certificates from ${cert.issuer.CN} are not welcome here.`);
-
+		res.status(403).send(`Sorry ${cert.subject.CN}, certificates from ${cert.issuer.CN} are not welcome here.`);
 	} else {
-		res.status(401)
-		   .send(`Sorry, but you need to provide a client certificate to continue.`);
+		res.status(401).send(`Sorry, but you need to provide a client certificate to continue.`);
 	}
 });
 
 // listens on https
-https.createServer(opts, app).listen(4433);
+https.createServer(opts, app).listen(4433, () => {
+	console.log('server online');
+});
 
 // this is only http
-// app.listen(3000, () => {
+// app.listen(4433, () => {
 // 	console.log('server online');
 // });
