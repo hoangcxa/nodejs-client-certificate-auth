@@ -6,7 +6,8 @@
   "scripts": {
     "server": "node ./server/server.js",
     "valid-client": "node ./client/valid-app.js",
-    "invalid-client": "node ./client/invalid-app.js"
+    "invalid-client": "node ./client/invalid-app.js",
+    "start": "node ./server/server.js",
   },
   "dependencies": {
     "axios": "^0.18.0",
