@@ -33,21 +33,12 @@ target 'TestApp' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
 
-  target 'TestAppTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+
 
   use_native_modules!
-end
-
-target 'TestApp-tvOS' do
-  # Pods for TestApp-tvOS
-
-  target 'TestApp-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
 
 end
+
